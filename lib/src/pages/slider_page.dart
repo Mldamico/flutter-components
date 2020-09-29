@@ -7,6 +7,7 @@ class SliderPage extends StatefulWidget {
 
 class _SliderPageState extends State<SliderPage> {
   double _valorSlider = 100.0;
+  bool _bloquearcheck = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +19,8 @@ class _SliderPageState extends State<SliderPage> {
           child: Column(
             children: [
               _crearSlider(),
+              _crearCheckbox(),
+              _crearSwitch(),
               Expanded(child: _crearImagen()),
             ],
           )),
@@ -31,11 +34,13 @@ class _SliderPageState extends State<SliderPage> {
       value: _valorSlider,
       min: 10,
       max: 400,
-      onChanged: (valor) {
-        setState(() {
-          _valorSlider = valor;
-        });
-      },
+      onChanged: _bloquearcheck
+          ? (valor) {
+              setState(() {
+                _valorSlider = valor;
+              });
+            }
+          : null,
     );
   }
 
@@ -45,6 +50,38 @@ class _SliderPageState extends State<SliderPage> {
           'https://static1.squarespace.com/static/56a5f5ef5827c35bf58e8e02/t/5a7042a30d9297dd2e320096/1517306532240/Algo_Logo.jpeg?format=1500w'),
       width: _valorSlider,
       fit: BoxFit.contain,
+    );
+  }
+
+  Widget _crearCheckbox() {
+    // return Checkbox(
+    //   value: _bloquearcheck,
+    //   onChanged: (valor) {
+    //     setState(() {
+    //       _bloquearcheck = valor;
+    //     });
+    //   },
+    // );
+    return CheckboxListTile(
+      title: Text('Bloquear Slider'),
+      value: _bloquearcheck,
+      onChanged: (valor) {
+        setState(() {
+          _bloquearcheck = valor;
+        });
+      },
+    );
+  }
+
+  Widget _crearSwitch() {
+    return SwitchListTile(
+      title: Text('Bloquear Slider'),
+      value: _bloquearcheck,
+      onChanged: (valor) {
+        setState(() {
+          _bloquearcheck = valor;
+        });
+      },
     );
   }
 }
